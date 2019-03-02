@@ -1,0 +1,11 @@
+<component name="CopyrightManager">
+  <settings>
+    <LanguageOptions name="Dart">
+      <option name="fileTypeOverride" value="3" />
+      <option name="separateBefore" value="true" />
+      <option name="separateAfter" value="true" />
+      <option name="lenBefore" value="50" />
+      <option name="lenAfter" value="50" />
+    </LanguageOptions>
+  </settings>
+</component>
