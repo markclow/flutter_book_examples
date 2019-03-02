@@ -43,7 +43,7 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> {
   List<Widget> _kittenTiles = [];
-  int _index = 0;
+  int _gridOptionsIndex = 0;
   List<GridOptions> _gridOptions = [
     GridOptions(2, 3, 1.0, 10.0, 10.0),
     GridOptions(3, 4, 1.0, 10.0, 10.0),
@@ -75,18 +75,18 @@ class _HomeWidgetState extends State<HomeWidget> {
     }
   }
 
-  void _incrementCounter() {
+  void _tryMoreGridOptions() {
     setState(() {
-      _index++;
-      if (_index >= (_gridOptions.length - 1)) {
-        _index = 0;
+      _gridOptionsIndex++;
+      if (_gridOptionsIndex >= (_gridOptions.length - 1)) {
+        _gridOptionsIndex = 0;
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    GridOptions options = _gridOptions[_index];
+    GridOptions options = _gridOptions[_gridOptionsIndex];
     return Scaffold(
       appBar: AppBar(
         title: Text("GridView"),
@@ -105,8 +105,8 @@ class _HomeWidgetState extends State<HomeWidget> {
       bottomNavigationBar: Container(
           child: Text(options.toString()), padding: EdgeInsets.all(20.0)),
       floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Try a new look',
+        onPressed: _tryMoreGridOptions,
+        tooltip: 'Try more grid options',
         child: new Icon(Icons.refresh),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
