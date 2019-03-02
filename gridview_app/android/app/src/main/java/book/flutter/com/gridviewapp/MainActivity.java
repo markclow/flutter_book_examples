@@ -1,4 +1,4 @@
-package expanded.expanded;
+package book.flutter.com.gridviewapp;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

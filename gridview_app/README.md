@@ -1,4 +1,4 @@
-# expanded
+# gridview_app
 
 A new Flutter application.
 
