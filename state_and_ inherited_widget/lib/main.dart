@@ -51,7 +51,7 @@ class ModelBinding<T> extends StatefulWidget {
       : assert(initialModel != null),
         super(key: key);
 
-  final T initialModelx;
+  final T initialModel;
   final Widget child;
 
   _ModelBindingState<T> createState() => _ModelBindingState<T>();
