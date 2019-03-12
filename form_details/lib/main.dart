@@ -226,17 +226,19 @@ class _AddressWidgetState extends State<AddressWidget> {
 
   TextFormField createFNameWidget() {
     return new TextFormField(
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Please enter your first name.';
-          }
-        },
-        decoration: InputDecoration(
-            icon: const Icon(Icons.person),
-            hintText: 'First name',
-            labelText: 'Enter your first name'),
-        onSaved: (String value) {},
-        controller: _fnameTextController);
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Please enter your first name.';
+        }
+      },
+      decoration: InputDecoration(
+          icon: const Icon(Icons.person),
+          hintText: 'First name',
+          labelText: 'Enter your first name'),
+      onSaved: (String value) {},
+      controller: _fnameTextController,
+      autofocus: true,
+    );
   }
 
   TextFormField createLNameWidget() {
