@@ -15,6 +15,7 @@ class Person {
   const Person(this.name, this.addressLine1, this.addressCity,
       this.addressState, this.children);
 
+  // You write this serialization code.
   Map<String, dynamic> toJson() {
     var map = {
       'name': name,
@@ -25,6 +26,7 @@ class Person {
     };
     return map;
   }
+  // You write this serialization code.
 
   @override
   String toString() {

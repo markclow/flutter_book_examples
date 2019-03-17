@@ -13,6 +13,7 @@ class Person {
   const Person(this.name, this.addressLine1, this.addressCity,
       this.addressState, this.children);
 
+  // You write this deserialization code.
   factory Person.fromJson(Map<String, dynamic> json) {
     if (json == null) {
       throw FormatException("Null JSON.");
@@ -28,6 +29,7 @@ class Person {
     return Person(
         json['name'], json['addr1'], json['city'], json['state'], children);
   }
+  // You write this deserialization code.
 
   @override
   String toString() {
