@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(ThemeBLOC(child: new GridViewApp()));
 
@@ -95,13 +95,12 @@ class GridOptions {
 }
 
 class ThemeBLOC extends InheritedWidget {
-  String _path;
+  SharedPreferences _prefs;
 
   ThemeBLOC({Key key, @required Widget child})
       : assert(child != null),
         super(key: key, child: child) {
-    getApplicationDocumentsDirectory()
-        .then((directory) => _path = directory.path);
+    SharedPreferences.getInstance().then((prefs) => _prefs = prefs);
   }
 
   ColorOptions _colorOptions = ColorOptions(
@@ -141,48 +140,32 @@ class ThemeBLOC extends InheritedWidget {
     _themeSubject.add(createThemeDataFromColorOptions()); // update widget tree
   }
 
-  List<String> get filenames {
-    List<String> filenameList = [];
-    Directory(_path).listSync().forEach((FileSystemEntity fse) {
-      String path = fse.path;
-      if (path.endsWith(".themeColor")) {
-        int startIndex = path.lastIndexOf(Platform.pathSeparator) + 1;
-        int endIndex = path.lastIndexOf(".themeColor");
-        filenameList.add(path.substring(startIndex, endIndex));
-      }
-    });
-    return filenameList;
+  List<String> get themes {
+    // Return list of themes.
+    String themes = _prefs.getString("themeList");
+    return themes == null ? [] : themes.split(";");
   }
 
-  open(String filename) {
-    FileSystemEntity fse =
-        Directory(_path).listSync().firstWhere((FileSystemEntity fse) {
-      String path = fse.path;
-      if (path.endsWith(".themeColor")) {
-        int startIndex = path.lastIndexOf(Platform.pathSeparator) + 1;
-        if (startIndex != -1) {
-          int endIndex = path.lastIndexOf(".themeColor");
-          if (endIndex != -1) {
-            var pathFilename = path.substring(startIndex, endIndex);
-            if (pathFilename == filename) {
-              return true;
-            }
-          }
-        }
-      }
-      return false;
-    });
-    if (fse != null) {
-      File("${fse.path}").readAsString().then((str) {
-        ColorOptions newColorOptions = ColorOptions.fromJson(jsonDecode(str));
-        this.colorOptions = newColorOptions;
-      });
+  open(String theme) {
+    // Open theme preference.
+    String themeAsJson = _prefs.getString(theme);
+    ColorOptions newColorOptions =
+        ColorOptions.fromJson(jsonDecode(themeAsJson));
+    this.colorOptions = newColorOptions;
+  }
+
+  saveAs(String theme) {
+    // Create new theme preference.
+    String themeAsJson = jsonEncode(_colorOptions.toJson());
+    _prefs.setString(theme, themeAsJson);
+
+    // Add new theme preference to list of themes.
+    String themeList = _prefs.getString('themeList');
+    if ((themeList == null) || (themeList.isEmpty)) {
+      _prefs.setString("themeList", theme);
+    } else if (themeList.indexOf(theme) == -1) {
+      _prefs.setString("themeList", themeList + ";" + theme);
     }
-  }
-
-  saveAs(String filename) {
-    String json = jsonEncode(_colorOptions.toJson());
-    File("${_path}/${filename}.themeColor").writeAsString(json);
   }
 }
 
@@ -276,7 +259,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             icon: Icon(Icons.folder_open),
             tooltip: 'Open',
             onPressed: () {
-              List<String> names = ThemeBLOC.of(context).filenames;
+              List<String> names = ThemeBLOC.of(context).themes;
               _showOpenDialog(context, names);
             }),
         IconButton(
@@ -456,6 +439,9 @@ class SaveAsDialogWidget extends StatelessWidget {
                           validator: (value) {
                             if (value.isEmpty) {
                               return 'Please enter the name.';
+                            }
+                            if (value == "themeList") {
+                              return 'You cannot use this name.';
                             }
                           },
                           decoration: InputDecoration(
