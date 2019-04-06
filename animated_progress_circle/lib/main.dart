@@ -41,7 +41,8 @@ class _HomeWidgetState extends State<HomeWidget>
   void initState() {
     _controller = AnimationController(
         duration: const Duration(seconds: 10),
-        vsync: this)
+        vsync: this
+    )
       ..addListener(() {
         setState(() {
           // Force build.
