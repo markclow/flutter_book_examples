@@ -27,7 +27,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool b = false;
 
-  void _incrementCounter() {
+  void _changeMode() {
     setState(() {
       b = !b;
     });
@@ -48,17 +48,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: b ? Colors.tealAccent : Colors.blueAccent,
                 height: b ? 400.0 : 200.0,
                 duration: Duration(seconds: 1),
-                child: Center(child:Text('Top', style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w200), textAlign: TextAlign.center))),
+                child: Center(
+                    child: Text('Top',
+                        style: TextStyle(
+                            fontSize: 30.0, fontWeight: FontWeight.w200),
+                        textAlign: TextAlign.center))),
             AnimatedContainer(
                 color: b ? Colors.redAccent : Colors.orangeAccent,
                 height: b ? 200.0 : 400.0,
                 duration: Duration(seconds: 1),
-                child: Center(child: Text('Bottom', style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w200), textAlign: TextAlign.center))),
+                child: Center(
+                    child: Text('Bottom',
+                        style: TextStyle(
+                            fontSize: 30.0, fontWeight: FontWeight.w200),
+                        textAlign: TextAlign.center))),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _changeMode,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
