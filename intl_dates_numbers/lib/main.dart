@@ -28,8 +28,6 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text("Internationalization"),
       ),
       body: Center(
@@ -38,32 +36,32 @@ class MyHomePage extends StatelessWidget {
           children: <Widget>[
             Spacer(flex: 1),
             Text(
-              'Date (Interpolation) ${_dt.month}/${_dt.day}/${_dt.year}',
+              'Date ${_dt.month}/${_dt.day}/${_dt.year}',
             ),
             Text(
-              'Date (Date Formatter Year Month & Day) ${DateFormat.yMd().format(_dt)}',
+              'Date (Date Formatter Year Month Day) ${DateFormat.yMd().format(_dt)}',
             ),
             Spacer(flex: 2),
             Text(
-              'Number (Interpolation) ${_db}',
+              'Number ${_db}',
             ),
             Text(
-              'Number (Date Formatter Decimal) ${NumberFormat.decimalPattern().format(_db)}',
+              'Number (NumberFormat Decimal) ${NumberFormat.decimalPattern().format(_db)}',
             ),
             Text(
-              'Number (Date Formatter Decimal Compact) ${NumberFormat.compact().format(_db)}',
+              'Number (NumberFormat Decimal Compact) ${NumberFormat.compact().format(_db)}',
             ),
             Text(
-              'Number (Date Formatter Currency) ${NumberFormat.currency().format(_db)}',
+              'Number (NumberFormat Currency) ${NumberFormat.currency().format(_db)}',
             ),
             Text(
-              'Number (Date Formatter Compact Currency) ${NumberFormat.compactCurrency().format(_db)}',
+              'Number (NumberFormat Compact Currency) ${NumberFormat.compactCurrency().format(_db)}',
             ),
             Text(
-              'Number (Date Formatter Simple Currency) ${NumberFormat.simpleCurrency().format(_db)}',
+              'Number (NumberFormat Simple Currency) ${NumberFormat.simpleCurrency().format(_db)}',
             ),
             Text(
-              'Number (Date Formatter Simple Currency YEN) ${NumberFormat.simpleCurrency(name:"JPY").format(_db)}',
+              'Number (NumberFormat Simple Currency YEN) ${NumberFormat.simpleCurrency(name:"JPY").format(_db)}',
             ),
             Spacer(flex: 1),
           ],
