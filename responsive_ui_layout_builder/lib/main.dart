@@ -64,7 +64,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint('build');
-    var container1 = Expanded(
+    var searchContainer = Expanded(
         child: Container(
       child: Center(
         child: Column(
@@ -80,7 +80,7 @@ class MyHomePage extends StatelessWidget {
       ),
       padding: EdgeInsets.all(10.0),
     ));
-    var container2 = Expanded(
+    var listContainer = Expanded(
         child: Container(
           child: ListView.builder(
               itemCount: LIST_DATA.length,
@@ -88,6 +88,7 @@ class MyHomePage extends StatelessWidget {
                 print('invoking itemBuilder for row ${index}');
                 var nasaOffice = LIST_DATA[index];
                 return ListTile(
+                    leading: const Icon(Icons.explore),
                     title: Text('${nasaOffice['Name']}'),
                     subtitle:
                         Text('${nasaOffice['Address']}, ${nasaOffice['City']},'
@@ -108,9 +109,9 @@ class MyHomePage extends StatelessWidget {
             builder: (BuildContext context, BoxConstraints constraints) {
           debugPrint('layout builder max width: ${constraints.maxWidth}');
           if (constraints.maxWidth > 600.0) {
-            return Row(children: <Widget>[container1, container2]);
+            return Row(children: <Widget>[searchContainer, listContainer]);
           } else {
-            return Column(children: <Widget>[container1, container2]);
+            return Column(children: <Widget>[searchContainer, listContainer]);
           }
         }));
   }
