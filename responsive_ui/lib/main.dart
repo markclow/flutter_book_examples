@@ -29,7 +29,8 @@ class MyHomePage extends StatelessWidget {
             var screenHeight = MediaQuery.of(context).size.height;
             var statusBarHeight = MediaQuery.of(context).padding.top;
             var appBarHeight = appBar.preferredSize.height;
-            var availableScreenHeight = screenHeight - statusBarHeight - appBarHeight;
+            var availableScreenHeight =
+                screenHeight - statusBarHeight - appBarHeight;
             var remainderText =
                 "Remaining Area\n(${orientation == Orientation.portrait ? "Portrait" : "Landscape"})";
             return Column(children: <Widget>[
