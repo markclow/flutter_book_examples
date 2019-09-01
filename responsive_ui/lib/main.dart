@@ -20,11 +20,16 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('build');
-    return Scaffold(
-        appBar: AppBar(title: Text("Responsive UI")),
+    var appBar = AppBar(title: Text("Responsive UI"));
+    var scaffold = Scaffold(
+        appBar: appBar,
         body: OrientationBuilder(
           builder: (context, orientation) {
             print('orientation builder');
+            var screenHeight = MediaQuery.of(context).size.height;
+            var statusBarHeight = MediaQuery.of(context).padding.top;
+            var appBarHeight = appBar.preferredSize.height;
+            var availableScreenHeight = screenHeight - statusBarHeight - appBarHeight;
             var remainderText =
                 "Remaining Area\n(${orientation == Orientation.portrait ? "Portrait" : "Landscape"})";
             return Column(children: <Widget>[
@@ -34,7 +39,7 @@ class MyHomePage extends StatelessWidget {
                 child: Center(
                     child: Text('10% height full width',
                         style: TextStyle(color: Colors.white))),
-                height: MediaQuery.of(context).size.height / 10,
+                height: availableScreenHeight / 10,
               ),
               Expanded(
                   // use the remaining height
@@ -63,5 +68,6 @@ class MyHomePage extends StatelessWidget {
             ]);
           },
         ));
+    return scaffold;
   }
 }
