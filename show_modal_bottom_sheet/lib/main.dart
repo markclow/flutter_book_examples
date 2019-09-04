@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import './bottom_sheet_fix.dart';
-
 void main() => runApp(MyApp());
 
 class Name {
@@ -34,8 +32,8 @@ class NameWidgetState extends State<NameWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(20.0),
-        child: Column(children: <Widget>[
+        padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, (MediaQuery.of(context).viewInsets.bottom) + 20.0),
+        child: ListView(children: <Widget>[
           TextField(
               controller: _firstNameController,
               decoration: InputDecoration(labelText: "First Name")),
@@ -83,9 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Name _name = Name(firstName: "", lastName: "");
 
   void _showModalBottomSheet(BuildContext context) {
-    showModalBottomSheetApp<Name>(
+    showModalBottomSheet<Name>(
         context: context,
-        resizeToAvoidBottomPadding: true,
         builder: (BuildContext context) {
           return GestureDetector(
               // gesture detector stops bottom sheet from closing when tapped
